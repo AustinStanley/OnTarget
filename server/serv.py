@@ -36,12 +36,6 @@ def get_pcc(times):
 
 
 async def transmit(websocket, path):
-    if len(sys.argv) > 1 and sys.argv[1] == '-g':
-        gui = True
-    else:
-        gui = False
-
-
     while True:
         try: 
             msg = ser.readline().decode('ascii')
@@ -59,10 +53,9 @@ async def transmit(websocket, path):
 
             if coords:
                 print('({:.2f}, {:.2f})'.format(coords.x, coords.y))
-                if gui:
-                    await websocket.send('{:.2f},{:.2f},{}\n'.format(coords.x, 
-                                                                     coords.y, 
-                                                                     time.time() * 1000))
+                await websocket.send('{:.2f},{:.2f},{}\n'.format(coords.x, 
+                                                                 coords.y, 
+                                                                 time.time() * 1000))
 
             else:
                 print('Calculation aborted')
